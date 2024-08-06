@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Login</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #fff;
+            padding: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+            border-radius: 8px;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .container h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container form .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .container form .form-group label {
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+
+        .container form .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .container form .form-group input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .container form .form-group .error {
+            color: red;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .container form .error-message {
+            color: red;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .container form button {
+            padding: 0.75rem;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .container form button:hover {
+            background-color: #0056b3;
+        }
+
+        .container .footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #777;
+        }
+
+        .container .footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .container .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {% if errors %}
+                <div class="error-message">
+                    {% for error in errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="form-group">
+                <label for="{{ form.username.id_for_label }}">Nome de Usuário</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="error">{{ form.username.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.password.id_for_label }}">Senha</label>
+                {{ form.password }}
+                {% if form.password.errors %}
+                    <div class="error">{{ form.password.errors }}</div>
+                {% endif %}
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <div class="footer">
+            <p>Ainda não tem uma conta? <a href="/register">Crie uma</a></p>
+        </div>
+    </div>
+</body>
+</html>
